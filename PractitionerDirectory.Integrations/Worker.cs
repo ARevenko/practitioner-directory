@@ -36,7 +36,7 @@ namespace PractitionerDirectory.Integrations
 
             using var consumer = new ConsumerBuilder<string, string>(config).Build();
             consumer.Subscribe(topic);
-            _logger.LogInformation($"Consumer запущен, слушаем топик{topic}");
+            _logger.LogInformation($"Consumer запущен, слушаем топик {topic}");
 
             while (!stoppingToken.IsCancellationRequested)
             {

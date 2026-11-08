@@ -133,6 +133,10 @@ namespace PractitionerDirectory.Services
             {
                 await _practitionerRepository.UpdatePractitionerAsync(entity);
             }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw new ConcurrencyConflictException();
+            }
             catch (DbUpdateException ex)
                 when (ex.InnerException is SqlException sqlEx && sqlEx.Number is 2627 or 2601)
             {

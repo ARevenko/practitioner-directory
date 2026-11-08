@@ -3,7 +3,6 @@ using Hl7.Fhir.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using PractitionerDirectory.API.Mappers;
 using PractitionerDirectory.Services;
-using PractitionerDirectory.Services.Models;
 
 namespace PractitionerDirectory.API.Controllers
 {
@@ -34,7 +33,7 @@ namespace PractitionerDirectory.API.Controllers
         /// <response code="404">Доктор не найден</response>
         /// <response code="500">Внутренняя ошибка сервера</response>
         [Produces(FhirContentType)]
-        [ProducesResponseType<PractitionerDTO>(StatusCodes.Status200OK)]
+        [ProducesResponseType<Practitioner>(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -61,14 +60,14 @@ namespace PractitionerDirectory.API.Controllers
         }
 
         /// <summary>Поиск докторов по имени и фамилиии</summary>
-        /// <param name="firstName">Имя доктора (поиск по части строки)</param>
-        /// <param name="lastName">Фамилия доктора (поиск по части строки)</param>
+        /// <param name="family">Имя доктора (поиск по части строки)</param>
+        /// <param name="given">Фамилия доктора (поиск по части строки)</param>
         /// <param name="count">Максимальное количество записей в ответе</param>
         /// <response code="200">Возвращает информацию о докторе</response>
         /// <response code="400">Некорректный запрос</response>
         /// <response code="500">Внутренняя ошибка сервера</response>
         [Produces(FhirContentType)]
-        [ProducesResponseType<PractitionerDTO>(StatusCodes.Status200OK)]
+        [ProducesResponseType<Bundle>(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ApiExplorerSettings(GroupName = "Practitioner-v1")]

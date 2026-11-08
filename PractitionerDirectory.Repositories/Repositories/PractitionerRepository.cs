@@ -24,8 +24,10 @@ namespace PractitionerDirectory.Repositories.Repositories
 
         public async Task<Practitioner?> GetPractitionerByEmailAsync(string email)
         {
+            var normalizedEmail = email.Trim().ToLowerInvariant();
+
             var entity = await _dbContext.Practitioners.
-                               FirstOrDefaultAsync(p => p.Email == email.Trim() &&
+                               FirstOrDefaultAsync(p => p.Email == normalizedEmail &&
                                                         p.DeletedOn == null);
 
             return entity;

@@ -51,6 +51,11 @@ namespace PractitionerDirectory.API.Middleware
                     message = duplicateEx.Message;
                     break;
 
+                case ConcurrencyConflictException concurrencyEx:
+                    statusCode = HttpStatusCode.Conflict;
+                    message = concurrencyEx.Message;
+                    break;
+
                 default:
                     statusCode = HttpStatusCode.InternalServerError;
                     message = "На сервере произошла внутренняя ошибка. Попробуйте позже.";
