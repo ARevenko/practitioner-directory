@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "PractitionerDirectory.API\\PractitionerDirectory.API.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "PractitionerDirectory.Integrations\\PractitionerDirectory.Integrations.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
