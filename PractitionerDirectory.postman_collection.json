@@ -1,0 +1,225 @@
+{
+  "info": {
+    "name": "PractitionerDirectory",
+    "description": "CRUD и FHIR R5 ручки справочника врачей. Переменная baseUrl по умолчанию указывает на локальный docker-compose.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000"
+    },
+    {
+      "key": "practitionerId",
+      "value": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+    }
+  ],
+  "item": [
+    {
+      "name": "CRUD",
+      "item": [
+        {
+          "name": "Список врачей (пагинация)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/practitioners?page=1&pageSize=50",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "practitioners"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "50"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Врач по Id",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/practitioners/{{practitionerId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "practitioners",
+                "{{practitionerId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Поиск по имени и фамилии",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/practitioners/search?firstName=&lastName=&resultSize=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "practitioners",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "firstName",
+                  "value": ""
+                },
+                {
+                  "key": "lastName",
+                  "value": ""
+                },
+                {
+                  "key": "resultSize",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Создать врача",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Иван\",\n  \"lastName\": \"Петров\",\n  \"phone\": \"+375291112233\",\n  \"speciality\": \"Терапевт\",\n  \"placeOfWork\": \"Городская поликлиника №1\",\n  \"email\": \"i.petrov@clinic.example\",\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/practitioners",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "practitioners"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Обновить врача",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{practitionerId}}\",\n  \"firstName\": \"Тест\",\n  \"lastName\": \"Кафков\",\n  \"phone\": \"+375294445566\",\n  \"speciality\": \"Хирург\",\n  \"placeOfWork\": \"Городская больница №2\",\n  \"email\": \"t.kafkov@clinic.example\",\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/practitioners",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "practitioners"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Удалить врача",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/practitioners/{{practitionerId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "practitioners",
+                "{{practitionerId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "FHIR R5",
+      "item": [
+        {
+          "name": "Read (FHIR)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/fhir+json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/fhir/practitioners/{{practitionerId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "fhir",
+                "practitioners",
+                "{{practitionerId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search (FHIR)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/fhir+json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/fhir/practitioners?family=&given=&_count=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "fhir",
+                "practitioners"
+              ],
+              "query": [
+                {
+                  "key": "family",
+                  "value": ""
+                },
+                {
+                  "key": "given",
+                  "value": ""
+                },
+                {
+                  "key": "_count",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
