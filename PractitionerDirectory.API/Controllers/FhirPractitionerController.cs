@@ -30,7 +30,7 @@ namespace PractitionerDirectory.API.Controllers
         /// <summary>Получить доктора по Id в формате FHIR R5</summary>
         /// <param name="id">Идентификатор доктора - Id</param>
         /// <response code="200">Возвращает информацию о докторе в формате FHIR</response>
-        /// <response code="400">Некорректный запрос/response>
+        /// <response code="400">Некорректный запрос</response>
         /// <response code="404">Доктор не найден</response>
         /// <response code="500">Внутренняя ошибка сервера</response>
         [Produces(FhirContentType)]
@@ -75,12 +75,12 @@ namespace PractitionerDirectory.API.Controllers
         [HttpGet]
         public async Task<ActionResult> Search(
             [FromQuery] string? family,
-            [FromQuery] string? give,
+            [FromQuery] string? given,
             [FromQuery(Name = "_count")] int count = 20)
         {
             count = Math.Clamp(count, 1, 50);
 
-            var list = await _practitionerService.GetPractitionersAsync(give, family, count);
+            var list = await _practitionerService.GetPractitionersAsync(given, family, count);
 
             var bundle = new Bundle
             {

@@ -6,6 +6,8 @@ namespace PractitionerDirectory.Services
     {
         Task<PractitionerDTO> UpsertAsync(PractitionerDTO model);
 
+        Task<PractitionerDTO> CreateAsync(PractitionerDTO model);
+
         Task<bool> DeleteAsync(Guid id);
 
         Task<PractitionerDTO?> GetPractitionerByIdAsync(Guid id);

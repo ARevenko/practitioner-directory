@@ -1,3 +1,4 @@
+using Hl7.Fhir.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using PractitionerDirectory.API.Mappers;
@@ -39,6 +40,7 @@ builder.Services.AddScoped<IPractitionerService, PractitionerService>();
 builder.Services.AddScoped<ServiceMapper.IPractitionerMapper, ServiceMapper.PractitionerMapper>();
 builder.Services.AddScoped<IPractitionerMapper, PractitionerMapper>();
 builder.Services.AddScoped<IFhirPractitionerMapper, FhirPractitionerMapper>();
+builder.Services.AddSingleton<FhirJsonSerializer>();
 
 var app = builder.Build();
 

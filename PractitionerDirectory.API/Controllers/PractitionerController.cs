@@ -57,7 +57,7 @@ namespace PractitionerDirectory.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ApiExplorerSettings(GroupName = "Practitioner-v1")]
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetPractitionerById")]
         public async Task<ActionResult> GetByIdAsync([FromRoute] Guid id)
         {
             var result = await _practitionerService.GetPractitionerByIdAsync(id);
@@ -104,8 +104,8 @@ namespace PractitionerDirectory.API.Controllers
         {
             var dtoModel = _mapper.CreatePractitionerRequestToPractitionerDTO(model);
 
-            var result = await _practitionerService.UpsertAsync(dtoModel);
-            return CreatedAtAction(nameof(GetByIdAsync), new { id = result.Id }, result);
+            var result = await _practitionerService.CreateAsync(dtoModel);
+            return CreatedAtRoute("GetPractitionerById", new { id = result.Id }, result);
         }
 
         /// <summary>Обновление доктора</summary>

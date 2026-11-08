@@ -47,6 +47,26 @@ namespace PractitionerDirectory.Services
             return model;
         }
 
+        public async Task<PractitionerDTO> CreateAsync(PractitionerDTO model)
+        {
+            var entity = await _practitionerRepository.GetPractitionerByEmailAsync(model.Email);
+
+            var isExist = entity != null;
+
+            if (entity != null)
+            {
+                throw new DuplicatePractitionerException();
+            }
+
+            entity = _mapper.PractitionerDTOToEntity(model, null);
+            model = await AddPractitionerAsync(model, entity);
+
+            model.CreatedOn = entity.CreatedOn;
+            model.UpdatedOn = entity.UpdatedOn;
+
+            return model;
+        }
+
         public async Task<bool> DeleteAsync(Guid id)
         {
             var entity = await _practitionerRepository.GetPractitionerByIdAsync(id);
