@@ -50,6 +50,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.API
+    restart: unless-stopped
     environment:
       ASPNETCORE_URLS: "http://+:8080"
       ConnectionStrings__ApplicationDb: "Server=mssql;Initial Catalog=PractitionerDirectory;User ID=sa;Password=Your_password123;TrustServerCertificate=True;"
@@ -63,6 +64,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.Worker
+    restart: unless-stopped
     environment:
       ConnectionStrings__ApplicationDb: "Server=mssql;Initial Catalog=PractitionerDirectory;User ID=sa;Password=Your_password123;TrustServerCertificate=True;"
       Kafka__BootstrapServers: "redpanda:9092"
